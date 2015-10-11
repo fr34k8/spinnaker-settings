@@ -1,0 +1,70 @@
+server:
+  port: 7002
+  ssl:
+    enabled: false
+
+redis:
+  connection: redis://localhost:6379
+
+services:
+  front50:
+    baseUrl: http://localhost:8080
+
+swagger:
+  enabled: true
+  title: clouddriver
+  description: Cloud read and write operations
+  contact: admin@host.net
+  patterns:
+    - .*elasticIps.*
+    - .*cache.*
+    - .*instance.*
+    - .*search.*
+    - .*security.*
+    - .*vpcs.*
+    - .*credentials.*
+    - .*subnets.*
+    - .*ops.*
+    - .*task.*
+    - .*applications.*
+    - .*aws.*
+    - .*gce.*
+    - .*instances.*
+    - .*reports.*
+
+default:
+  # legacyServerPort is a non-ssl listener, if ssl is enabled. -1 to disable
+  legacyServerPort: -1
+  account:
+    env: default
+
+
+cf:
+  enabled: true
+  accounts:
+    -
+      name: demos
+      api: https://api.run.pivotal.io
+      org: FrameworksAndRuntimes
+      space: development
+      username: ${cf.account.name}
+      password: ${cf.account.password}
+    -
+      name: prod
+      api: https://api.run.pivotal.io
+      org: spring.io
+      space: production
+      username: ${cf.account.name}
+      password: ${cf.account.password}
+    -
+      name: staging
+      api: https://api.run.pivotal.io
+      org: spring.io
+      space: staging
+      username: ${cf.account.name}
+      password: ${cf.account.password}
+
+logging:
+  level:
+    retrofit: DEBUG
+
